@@ -10,3 +10,4 @@ CREATE TABLE EventEntity
     triggeredby character varying(200) NOT NULL,
     CONSTRAINT pk_id PRIMARY KEY (id)
 );
+

@@ -14,4 +14,5 @@ data class EventEntity(
     var event: String,
     var eventid: String,
     var triggeredby: String,
+    var json_item: String,
 )

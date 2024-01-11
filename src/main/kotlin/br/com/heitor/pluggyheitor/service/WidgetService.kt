@@ -75,13 +75,31 @@ class WidgetService(
         return str
     }
 
+    fun getItemInfo(id: String): String {
+        val pluggyClient = PluggyClient.builder()
+            .clientIdAndSecret(clientId, clientSecret)
+            .build()
+
+        val itemResponse = pluggyClient.service()
+            .getItem(id)
+            .execute()
+            .body()
+
+        return itemResponse.toString()
+    }
+
     fun saveEventRequest(eventRequest: EventRequest) {
+        // Get item information
+        val item = getItemInfo(eventRequest.itemId)
+
         val eventEntity = EventEntity(
             itemid = eventRequest.itemId,
             event = eventRequest.event,
             triggeredby = eventRequest.triggeredBy,
             eventid = eventRequest.eventId,
+            json_item = item.toString()
         )
+
         val savedEvent = eventEntityRepository.save(eventEntity)
         println("Saved event with id: ${savedEvent.id}")
     }
